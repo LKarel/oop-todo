@@ -8,9 +8,9 @@ public class TasksFilter
 {
 	private TaskList source = new TaskList();
 
-	private BitSet done = new BitSet();
-	private ArrayList<Date> dates = new ArrayList<Date>();
-	private ArrayList<String> keywords = new ArrayList<String>();
+	private BitSet byDone = new BitSet();
+	private ArrayList<Date> byDates = new ArrayList<Date>();
+	private ArrayList<String> byKeywords = new ArrayList<String>();
 
 	/**
 	 * Create a new TasksFilter for a set of tasks.
@@ -26,26 +26,26 @@ public class TasksFilter
 	/**
 	 * Select all tasks that are due on the specified date
 	 */
-	public void date(Date date)
+	public void byDate(Date date)
 	{
 		// @todo make the date more generic, store as int
-		dates.add(date);
+		byDates.add(date);
 	}
 
 	/**
 	 * Select tasks that match this keyword
 	 */
-	public void keyword(String keyword)
+	public void byKeyword(String keyword)
 	{
-		keywords.add(keyword.toLowerCase());
+		byKeywords.add(keyword.toLowerCase());
 	}
 
 	/**
 	 * Select tasks based on their done/not done status.
 	 */
-	public void done(boolean done)
+	public void byDone(boolean done)
 	{
-		this.done.set(done ? 1 : 0);
+		byDone.set(done ? 1 : 0);
 	}
 
 	/**
@@ -60,9 +60,9 @@ public class TasksFilter
 			// @todo compare dates here
 
 			// The `done` restriction has been set
-			if (!done.isEmpty())
+			if (!byDone.isEmpty())
 			{
-				if (!done.get(task.getDone() ? 1 : 0))
+				if (!byDone.get(task.getDone() ? 1 : 0))
 				{
 					// The task's `done` value does not match what was required
 					continue;
@@ -71,7 +71,7 @@ public class TasksFilter
 
 			boolean valid = true;
 
-			for (String keyword : keywords)
+			for (String keyword : byKeywords)
 			{
 				if (!task.getName().toLowerCase().contains(keyword))
 				{
