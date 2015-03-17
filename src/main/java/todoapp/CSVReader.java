@@ -67,9 +67,17 @@ public class CSVReader
 	/**
 	 * Create a new CSVReader instance
 	 */
-	public CSVReader(File file) throws Exception
+	public CSVReader(File file) throws FileNotFoundException
 	{
 		this.scanner = new Scanner(file);
+	}
+
+	/**
+	 * Test whether it is possible to read next line
+	 */
+	public boolean canRead()
+	{
+		return scanner.hasNextLine();
 	}
 
 	/**
@@ -79,7 +87,7 @@ public class CSVReader
 	{
 		String line = "";
 
-		while (scanner.hasNextLine())
+		while (canRead())
 		{
 			line = scanner.nextLine();
 
