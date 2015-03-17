@@ -18,7 +18,7 @@ public class TasksReader
 	}
 
 	/**
-	 * @Return TaskList of all the tasks in the file
+	 * @return TaskList of all the tasks in the file
 	 */
 	public TaskList getTasks() throws FileNotFoundException
 	{
@@ -34,11 +34,10 @@ public class TasksReader
 			String name = line.nextString();
 			boolean done = line.nextBoolean();
 
-			Task task = new Task(id, name,deadline, done);
+			Task task = new Task(id, name, deadline, done);
 			tasks.add(task);
 		}
 
 		return tasks;
 	}
-
 }
