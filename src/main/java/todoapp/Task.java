@@ -109,7 +109,7 @@ public class Task
 
 	public String toString()
 	{
-		String done = this.done ? "x" : " ";
+		String done = this.done ? "\u2713" : "\u2717";
 		String deadline = Task.dateFormat.format(this.deadline);
 
 		return String.format("%-2d %s %s %s", id, deadline, done, name);
