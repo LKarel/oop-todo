@@ -102,4 +102,12 @@ public class Task
 	{
 		this.done = done;
 	}
+
+	public String toString()
+	{
+		String done = this.done ? "x" : " ";
+
+		// @todo convert timestamp to ISO8601 date
+		return String.format("[%s] %2d %d %s", done, id, deadline, name);
+	}
 }
