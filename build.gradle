@@ -1,0 +1,18 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'todoapp.Main'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+}
+
+jar {
+	baseName = 'oop-todo'
+	manifest.attributes('Main-Class': 'todoapp.Main')
+}
+
