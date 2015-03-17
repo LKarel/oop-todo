@@ -1,9 +1,10 @@
 import java.io.File;
 import java.util.Date;
+import java.util.Scanner;
 
 public class CSVReader
 {
-	private File file;
+	private Scanner scanner;
 
 	public class Line
 	{
@@ -42,16 +43,25 @@ public class CSVReader
 		}
 	}
 
-	public CSVReader(File file)
+	public CSVReader(File file) throws Exception
 	{
-		this.file = file;
+		this.scanner = new Scanner(file);
 	}
 
-	/**
-	 * @return True if file exists, else false. 
-	 */
-	public boolean isValid()
+	public Line readLine()
 	{
-		return file.exists();
+		String line = "";
+
+		while (scanner.hasNextLine())
+		{
+			line = scanner.nextLine();
+
+			if (!line.startsWith("#"))
+			{
+				break;
+			}
+		}
+
+		return new Line(line.split(","));
 	}
 }
