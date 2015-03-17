@@ -69,6 +69,8 @@ public class Main
 	public static void printUsage()
 	{
 		System.out.println(String.join("\n", Main.usage));
+		System.out.println(String.format("\nThe data file is stored at %s",
+				TasksReader.getDataFile().getAbsolutePath()));
 	}
 
 	/**
