@@ -39,4 +39,27 @@ public class TasksReader
 
 		return tasks;
 	}
+
+	/**
+	 * Returns a File instance pointing to the data file.
+	 */
+	public static File getDataFile()
+	{
+		File ret = null;
+
+		try
+		{
+			ret = new File(System.getProperty("user.home"), "todo.csv");
+		}
+		catch (SecurityException e)
+		{
+		}
+
+		if (ret == null)
+		{
+			ret = new File("todo.csv");
+		}
+
+		return ret;
+	}
 }
