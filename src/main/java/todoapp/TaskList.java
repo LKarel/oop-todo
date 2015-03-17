@@ -13,6 +13,22 @@ public class TaskList extends ArrayList<Task>
 	}
 
 	/**
+	 * Return a shallow copy of this TaskList instance.
+	 */
+	@Override
+	public TaskList clone()
+	{
+		TaskList copy = new TaskList();
+
+		for (Task task : this)
+		{
+			copy.add(task);
+		}
+
+		return copy;
+	}
+
+	/**
 	 * Find a task by id
 	 *
 	 * @param int id

@@ -15,12 +15,9 @@ public class TasksFilter
 	/**
 	 * Create a new TasksFilter for a set of tasks.
 	 */
-	public TasksFilter(TaskList source)
+	public TasksFilter(TaskList tasks)
 	{
-		for (Task task : source)
-		{
-			this.source.add(task);
-		}
+		source = tasks.clone();
 	}
 
 	/**
