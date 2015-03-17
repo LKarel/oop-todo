@@ -34,8 +34,7 @@ public class TasksReader
 			String name = line.nextString();
 			boolean done = line.nextBoolean();
 
-			Task task = new Task(id, name, deadline, done);
-			tasks.add(task);
+			tasks.add(new Task(id, name, deadline, done));
 		}
 
 		return tasks;
