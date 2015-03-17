@@ -1,18 +1,22 @@
 package todoapp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Task
 {
 	private static int maxId = 0;
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
 	private int id;
-	private long deadline;
+	private Date deadline;
 	private String name;
 	private boolean done;
 
 	/**
 	 * Create a new Task instance
 	 */
-	public Task(int id, String name, long deadline, boolean done)
+	public Task(int id, String name, Date deadline, boolean done)
 	{
 		this.id = id;
 		this.name = name;
@@ -28,7 +32,7 @@ public class Task
 	/**
 	 * Create a new Task instance and auto-generate the ID.
 	 */
-	public Task(String name, long deadline)
+	public Task(String name, Date deadline)
 	{
 		this(Task.maxId + 1, name, deadline, false);
 	}
@@ -46,9 +50,9 @@ public class Task
 	/**
 	 * Get deadline.
 	 *
-	 * @return deadline as long.
+	 * @return deadline as Date.
 	 */
-	public long getDeadline()
+	public Date getDeadline()
 	{
 		return deadline;
 	}
@@ -58,7 +62,7 @@ public class Task
 	 *
 	 * @param deadline the value to set.
 	 */
-	public void setDeadline(long deadline)
+	public void setDeadline(Date deadline)
 	{
 		this.deadline = deadline;
 	}
@@ -106,8 +110,8 @@ public class Task
 	public String toString()
 	{
 		String done = this.done ? "x" : " ";
+		String deadline = Task.dateFormat.format(this.deadline);
 
-		// @todo convert timestamp to ISO8601 date
-		return String.format("[%s] %2d %d %s", done, id, deadline, name);
+		return String.format("%-2d %s %s %s", id, deadline, done, name);
 	}
 }
