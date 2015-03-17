@@ -1,7 +1,17 @@
 package todoapp;
 
+import java.util.Arrays;
+
 public class Main
 {
+	private static class IllegalUsageException extends Exception
+	{
+		public IllegalUsageException()
+		{
+			super();
+		}
+	}
+
 	private static final String[] usage = {
 		"[VERB] [OPTIONS]",
 		"",
@@ -27,39 +37,60 @@ public class Main
 
 		// @todo: load all tasks from tasks.csv
 
-		switch (args[0])
+		String verb = args[0];
+		String[] argsLeft = Arrays.copyOfRange(args, 1, args.length);
+
+		try
 		{
-			case "list":
-				System.out.println("TODO: List tasks and apply filters");
-				break;
-
-			case "done":
-				if (args.length != 2)
-				{
-					printUsage();
-					return;
-				}
-
-				System.out.println("TODO: Mark task as done");
-				break;
-
-			case "undo":
-				if (args.length != 2)
-				{
-					printUsage();
-					return;
-				}
-
-				System.out.println("TODO: Mark task as not done");
-				break;
+			if (verb.equals("list"))
+			{
+				list(argsLeft);
+			}
+			else if (verb.equals("done") || verb.equals("undo"))
+			{
+				mark(argsLeft, verb.equals("done"));
+			}
+			else
+			{
+				throw new IllegalUsageException();
+			}
+		}
+		catch (IllegalUsageException e)
+		{
+			printUsage();
 		}
 
 		// @todo: write tasks
 	}
 
+	/**
+	 * Print usage information for this program.
+	 */
 	public static void printUsage()
 	{
 		System.out.println(String.join("\n", Main.usage));
+	}
+
+	/**
+	 * Handle `list` verb.
+	 */
+	private static void list(String[] args)
+	{
+		System.out.println("TODO: List tasks and apply filters");
+	}
+
+	/**
+	 * Handle `done` and `undo` verbs
+	 */
+	private static void mark(String[] args, boolean done)
+		throws IllegalUsageException
+	{
+		if (args.length != 1)
+		{
+			throw new IllegalUsageException();
+		}
+
+		System.out.println("TODO: Mark task as " + (done ? "done" : "not done"));
 	}
 }
 
