@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class TasksReader
 {
-	private File file;
+	private static File file = null;
 
 	/**
 	 * Create a new TasksReader instance
@@ -20,21 +20,33 @@ public class TasksReader
 	/**
 	 * @return TaskList of all the tasks in the file
 	 */
-	public TaskList getTasks() throws FileNotFoundException
+	public static TaskList getTasks()
 	{
-		CSVReader reader = new CSVReader(file);
 		TaskList tasks = new TaskList();
 
-		while (reader.canRead())
+		if (file == null)
 		{
-			CSVReader.Line line = reader.readLine();
+			file = getDataFile();
+		}
 
-			int id = line.nextInt();
-			Date deadline = line.nextDate();
-			String name = line.nextString();
-			boolean done = line.nextBoolean();
+		try
+		{
+			CSVReader reader = new CSVReader(file);
 
-			tasks.add(new Task(id, name, deadline, done));
+			while (reader.canRead())
+			{
+				CSVReader.Line line = reader.readLine();
+
+				int id = line.nextInt();
+				Date deadline = line.nextDate();
+				String name = line.nextString();
+				boolean done = line.nextBoolean();
+
+				tasks.add(new Task(id, name, deadline, done));
+			}
+		}
+		catch (FileNotFoundException e)
+		{
 		}
 
 		return tasks;

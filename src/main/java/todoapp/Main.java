@@ -1,6 +1,9 @@
 package todoapp;
 
+import java.io.File;
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Main
 {
@@ -24,8 +27,13 @@ public class Main
 		"  Mark task with the specified ID as done",
 		"",
 		"undo ID",
-		"  Mark task with the specified ID as not done"
+		"  Mark task with the specified ID as not done",
+		"",
+		"add 'dd-MM-yyyy hh:mm' 'name'",
+		"  Add task with the specified deadline and name to the list"
 	};
+
+	private static TaskList tasks = TasksReader.getTasks();
 
 	public static void main(String[] args)
 	{
@@ -34,8 +42,6 @@ public class Main
 			printUsage();
 			return;
 		}
-
-		// @todo: load all tasks from tasks.csv
 
 		String verb = args[0];
 		String[] argsLeft = Arrays.copyOfRange(args, 1, args.length);
@@ -50,6 +56,10 @@ public class Main
 			{
 				mark(argsLeft, verb.equals("done"));
 			}
+			else if (verb.equals("add"))
+			{
+				add(argsLeft);
+			}
 			else
 			{
 				throw new IllegalUsageException();
@@ -59,8 +69,6 @@ public class Main
 		{
 			printUsage();
 		}
-
-		// @todo: write tasks
 	}
 
 	/**
@@ -94,5 +102,27 @@ public class Main
 
 		System.out.println("TODO: Mark task as " + (done ? "done" : "not done"));
 	}
-}
 
+	/**
+	 * Handle `add` verb
+	 */
+	private static void add(String[] args) throws IllegalUsageException
+	{
+		if (args.length != 2)
+		{
+			throw new IllegalUsageException();
+		}
+
+		try
+		{
+			Task newTask = new Task(args[1], Task.dateFormat.parse(args[0]));
+			tasks.add(newTask);
+			TasksWriter.write(tasks);
+
+			System.out.println("Added task '" + args[1] + "' with deadline " + args[0] + " to the list");
+		}
+		catch (ParseException e)
+		{
+		}
+	}
+}

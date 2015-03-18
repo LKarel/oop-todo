@@ -6,33 +6,44 @@ import java.io.PrintWriter;
 
 public class TasksWriter
 {
-	private File file;
-	private String filename;
+	private static File file = null;
 
 	/**
 	 * Create a new TasksWriter instance
 	 */
-	public TasksWriter(String filename)
+	public TasksWriter(File file)
 	{
-		this.file = new File(filename);
-		this.filename = filename;
+		this.file = file;
 	}
 
 	/**
 	 * Truncate the file and write all the tasks to the file
 	 */
-	public void write(TaskList tasks) throws FileNotFoundException
+	public static void write(TaskList tasks)
 	{
-		file.delete();
-		file = new File(filename);
-
-		PrintWriter printWriter = new PrintWriter(file);
-
-		for (Task task : tasks)
+		if (file == null)
 		{
-			printWriter.println(task);
+			file = TasksReader.getDataFile();
 		}
 
-		printWriter.close();
+		String filePath = file.getAbsolutePath();
+
+		file.delete();
+		file = new File(filePath);
+
+		try
+		{
+			PrintWriter printWriter = new PrintWriter(file);
+
+			for (Task task : tasks)
+			{
+				printWriter.println(task.toCSV());
+			}
+
+			printWriter.close();
+		}
+		catch (FileNotFoundException e)
+		{
+		}
 	}
 }

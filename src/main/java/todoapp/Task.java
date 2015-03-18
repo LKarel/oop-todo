@@ -6,7 +6,7 @@ import java.util.Date;
 public class Task
 {
 	private static int maxId = 0;
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
 	private int id;
 	private Date deadline;
@@ -113,5 +113,12 @@ public class Task
 		String deadline = Task.dateFormat.format(this.deadline);
 
 		return String.format("%-2d %s %s %s", id, deadline, done, name);
+	}
+
+	public String toCSV()
+	{
+		long deadlineUnix = this.deadline.getTime() / 1000;
+
+		return id + "," + deadlineUnix + "," + name + "," + (done ? "1" : "0");
 	}
 }
