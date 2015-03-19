@@ -41,9 +41,7 @@ public class Main
 		"  Add task with the specified deadline and name to the list"
 	};
 
-	private static File tasksFile = TasksReader.getDataFile();
-	private static TasksReader tasksReader = new TasksReader(tasksFile);
-	private static TaskList tasks = tasksReader.getTasks();
+	private static TaskList tasks;
 
 	public static void main(String[] args)
 	{
@@ -52,6 +50,10 @@ public class Main
 			printUsage();
 			return;
 		}
+
+		File tasksFile = TasksReader.getDataFile();
+		TasksReader tasksReader = new TasksReader(tasksFile);
+		tasks = tasksReader.getTasks();
 
 		String verb = args[0];
 		String[] argsLeft = Arrays.copyOfRange(args, 1, args.length);
