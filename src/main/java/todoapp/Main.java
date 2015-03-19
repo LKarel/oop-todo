@@ -9,9 +9,17 @@ public class Main
 {
 	private static class IllegalUsageException extends Exception
 	{
+		public final String message;
+
 		public IllegalUsageException()
 		{
+			this(null);
+		}
+
+		public IllegalUsageException(String message)
+		{
 			super();
+			this.message = message;
 		}
 	}
 
@@ -69,7 +77,14 @@ public class Main
 		}
 		catch (IllegalUsageException e)
 		{
-			printUsage();
+			if (e.message != null)
+			{
+				System.out.println(e.message);
+			}
+			else
+			{
+				printUsage();
+			}
 		}
 	}
 
@@ -123,8 +138,7 @@ public class Main
 		}
 		catch (ParseException e)
 		{
-			System.out.println("Wrong date format");
-			return;
+			throw new IllegalUsageException("Invalid date format");
 		}
 
 		String taskName = args[1];
