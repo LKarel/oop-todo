@@ -3,6 +3,7 @@ package todoapp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 public class TasksWriter
 {
@@ -50,9 +51,9 @@ public class TasksWriter
 	 */
 	private String taskToCSV(Task task)
 	{
-		long deadlineUnix = task.getDeadline().getTime() / 1000;
+		String deadline = task.getDeadline().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 		String taskDone = task.getDone() ? "1" : "0";
 
-		return task.getId() + "," + deadlineUnix + "," + task.getName() + "," + taskDone;
+		return task.getId() + "," + deadline + "," + task.getName() + "," + taskDone;
 	}
 }

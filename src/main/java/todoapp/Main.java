@@ -1,7 +1,7 @@
 package todoapp;
 
 import java.io.File;
-import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -146,13 +146,9 @@ public class Main
 			throw new IllegalUsageException();
 		}
 
-		Date deadline = new Date();
+		LocalDateTime deadline = DateParser.parse(args[0]);
 
-		try
-		{
-			deadline = Task.dateFormat.parse(args[0]);
-		}
-		catch (ParseException e)
+		if (deadline == null)
 		{
 			throw new IllegalUsageException("Invalid date format");
 		}

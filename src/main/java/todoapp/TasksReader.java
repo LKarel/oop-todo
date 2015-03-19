@@ -3,7 +3,7 @@ package todoapp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class TasksReader
 {
@@ -33,7 +33,7 @@ public class TasksReader
 				CSVReader.Line line = reader.readLine();
 
 				int id = line.nextInt();
-				Date deadline = line.nextDate();
+				LocalDateTime deadline = line.nextLocalDateTime();
 				String name = line.nextString();
 				boolean done = line.nextBoolean();
 

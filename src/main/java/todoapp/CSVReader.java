@@ -2,6 +2,9 @@ package todoapp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -39,12 +42,18 @@ public class CSVReader
 		}
 
 		/**
-		 * @return value as a Date instance
+		 * @return value as a LocalDateTime instance
 		 */
-		public Date nextDate()
+		public LocalDateTime nextLocalDateTime()
 		{
-			long deadline = Long.parseLong(next());
-			return new Date(deadline * 1000);
+			try
+			{
+				return LocalDateTime.parse(next(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+			}
+			catch (DateTimeParseException e)
+			{
+				return null;
+			}
 		}
 
 		/**

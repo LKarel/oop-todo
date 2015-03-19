@@ -1,6 +1,8 @@
 package todoapp;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Task
@@ -9,14 +11,14 @@ public class Task
 	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
 	private int id;
-	private Date deadline;
+	private LocalDateTime deadline;
 	private String name;
 	private boolean done;
 
 	/**
 	 * Create a new Task instance
 	 */
-	public Task(int id, String name, Date deadline, boolean done)
+	public Task(int id, String name, LocalDateTime deadline, boolean done)
 	{
 		this.id = id;
 		this.name = name;
@@ -32,7 +34,7 @@ public class Task
 	/**
 	 * Create a new Task instance and auto-generate the ID.
 	 */
-	public Task(String name, Date deadline)
+	public Task(String name, LocalDateTime deadline)
 	{
 		this(Task.maxId + 1, name, deadline, false);
 	}
@@ -50,9 +52,9 @@ public class Task
 	/**
 	 * Get deadline.
 	 *
-	 * @return deadline as Date.
+	 * @return deadline as LocalDateTime.
 	 */
-	public Date getDeadline()
+	public LocalDateTime getDeadline()
 	{
 		return deadline;
 	}
@@ -62,7 +64,7 @@ public class Task
 	 *
 	 * @param deadline the value to set.
 	 */
-	public void setDeadline(Date deadline)
+	public void setDeadline(LocalDateTime deadline)
 	{
 		this.deadline = deadline;
 	}
@@ -110,7 +112,7 @@ public class Task
 	public String toString()
 	{
 		String done = this.done ? "\u2713" : "\u2717";
-		String deadline = Task.dateFormat.format(this.deadline);
+		String deadline = this.deadline.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
 		return String.format("%-2d %s %s %s", id, deadline, done, name);
 	}
