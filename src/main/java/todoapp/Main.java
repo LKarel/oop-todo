@@ -33,7 +33,9 @@ public class Main
 		"  Add task with the specified deadline and name to the list"
 	};
 
-	private static TaskList tasks = TasksReader.getTasks();
+	private static File tasksFile = TasksReader.getDataFile();
+	private static TasksReader tasksReader = new TasksReader(tasksFile);
+	private static TaskList tasks = tasksReader.getTasks();
 
 	public static void main(String[] args)
 	{
@@ -113,16 +115,26 @@ public class Main
 			throw new IllegalUsageException();
 		}
 
+		Date deadline = new Date();
+
 		try
 		{
-			Task newTask = new Task(args[1], Task.dateFormat.parse(args[0]));
-			tasks.add(newTask);
-			TasksWriter.write(tasks);
-
-			System.out.println("Added task '" + args[1] + "' with deadline " + args[0] + " to the list");
+			deadline = Task.dateFormat.parse(args[0]);
 		}
 		catch (ParseException e)
 		{
+			System.out.println("Wrong date format");
+			return;
 		}
+
+		String taskName = args[1];
+		Task newTask = new Task(taskName, deadline);
+
+		tasks.add(newTask);
+		TasksWriter tasksWriter = new TasksWriter(tasksFile);
+		tasksWriter.write(tasks);
+
+		System.out.println("Added task '" + taskName + "' with deadline " + deadline + " to the list");
+
 	}
 }

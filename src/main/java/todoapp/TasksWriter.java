@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class TasksWriter
 {
-	private static File file = null;
+	private File file;
 
 	/**
 	 * Create a new TasksWriter instance
@@ -19,12 +19,8 @@ public class TasksWriter
 	/**
 	 * Truncate the file and write all the tasks to the file
 	 */
-	public static void write(TaskList tasks)
+	public void write(TaskList tasks)
 	{
-		if (file == null)
-		{
-			file = TasksReader.getDataFile();
-		}
 
 		String filePath = file.getAbsolutePath();
 
@@ -37,13 +33,26 @@ public class TasksWriter
 
 			for (Task task : tasks)
 			{
-				printWriter.println(task.toCSV());
+				printWriter.println(taskToCSV(task));
 			}
 
 			printWriter.close();
 		}
 		catch (FileNotFoundException e)
 		{
+			System.out.println("Invalid file");
+			return;
 		}
+	}
+
+	/**
+	 * Returns task instance as a CSV String
+	 */
+	private String taskToCSV(Task task)
+	{
+		long deadlineUnix = task.getDeadline().getTime() / 1000;
+		String taskDone = task.getDone() ? "1" : "0";
+
+		return task.getId() + "," + deadlineUnix + "," + task.getName() + "," + taskDone;
 	}
 }

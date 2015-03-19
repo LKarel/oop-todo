@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class TasksReader
 {
-	private static File file = null;
+	private File file;
 
 	/**
 	 * Create a new TasksReader instance
@@ -20,14 +20,9 @@ public class TasksReader
 	/**
 	 * @return TaskList of all the tasks in the file
 	 */
-	public static TaskList getTasks()
+	public TaskList getTasks()
 	{
 		TaskList tasks = new TaskList();
-
-		if (file == null)
-		{
-			file = getDataFile();
-		}
 
 		try
 		{
@@ -47,6 +42,7 @@ public class TasksReader
 		}
 		catch (FileNotFoundException e)
 		{
+			System.out.println("Invalid file");
 		}
 
 		return tasks;
