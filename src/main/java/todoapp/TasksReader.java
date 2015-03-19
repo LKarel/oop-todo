@@ -42,7 +42,6 @@ public class TasksReader
 		}
 		catch (FileNotFoundException e)
 		{
-			System.out.println("Invalid file");
 		}
 
 		return tasks;
@@ -66,11 +65,6 @@ public class TasksReader
 		if (ret == null)
 		{
 			ret = new File("todo.csv");
-		}
-
-		if(!ret.exists())
-		{
-			ret.createNewFile();
 		}
 
 		return ret;
