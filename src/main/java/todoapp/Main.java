@@ -106,8 +106,6 @@ public class Main
 	 */
 	private static void list(String[] args)
 	{
-		System.out.println("TODO: List tasks and apply filters");
-
 		for (Task task : tasks)
 		{
 			System.out.println(task);
