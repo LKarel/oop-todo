@@ -68,6 +68,11 @@ public class TasksReader
 			ret = new File("todo.csv");
 		}
 
+		if(!ret.exists())
+		{
+			ret.createNewFile();
+		}
+
 		return ret;
 	}
 }
