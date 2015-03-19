@@ -60,7 +60,7 @@ public class CSVReader
 		 */
 		public boolean nextBoolean()
 		{
-			return next() == "1";
+			return next().equals("1");
 		}
 	}
 

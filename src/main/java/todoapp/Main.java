@@ -86,6 +86,9 @@ public class Main
 				printUsage();
 			}
 		}
+
+		TasksWriter tasksWriter = new TasksWriter(tasksFile);
+		tasksWriter.write(tasks);
 	}
 
 	/**
@@ -104,20 +107,33 @@ public class Main
 	private static void list(String[] args)
 	{
 		System.out.println("TODO: List tasks and apply filters");
+
+		for (Task task : tasks)
+		{
+			System.out.println(task);
+		}
 	}
 
 	/**
 	 * Handle `done` and `undo` verbs
 	 */
-	private static void mark(String[] args, boolean done)
-		throws IllegalUsageException
+	private static void mark(String[] args, boolean done) throws IllegalUsageException
 	{
 		if (args.length != 1)
 		{
 			throw new IllegalUsageException();
 		}
 
-		System.out.println("TODO: Mark task as " + (done ? "done" : "not done"));
+		int taskId = Integer.parseInt(args[0]);
+		Task task = tasks.findById(taskId);
+
+		if (task == null)
+		{
+			throw new IllegalUsageException("No task with such ID in the list");
+		}
+
+		task.setDone(done);
+		System.out.println("Marked task '" + task.getName() +"' as " + (done ? "done" : "not done"));
 	}
 
 	/**
@@ -143,12 +159,8 @@ public class Main
 
 		String taskName = args[1];
 		Task newTask = new Task(taskName, deadline);
-
 		tasks.add(newTask);
-		TasksWriter tasksWriter = new TasksWriter(tasksFile);
-		tasksWriter.write(tasks);
 
 		System.out.println("Added task '" + taskName + "' with deadline " + deadline + " to the list");
-
 	}
 }
