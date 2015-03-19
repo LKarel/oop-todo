@@ -141,7 +141,7 @@ public class Main
 	 */
 	private static void add(String[] args) throws IllegalUsageException
 	{
-		if (args.length != 2)
+		if (args.length < 2)
 		{
 			throw new IllegalUsageException();
 		}
@@ -153,7 +153,7 @@ public class Main
 			throw new IllegalUsageException("Invalid date format");
 		}
 
-		String taskName = args[1];
+		String taskName = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 		Task newTask = new Task(taskName, deadline);
 		tasks.add(newTask);
 
