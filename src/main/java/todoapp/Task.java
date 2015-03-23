@@ -8,7 +8,6 @@ import java.util.Date;
 public class Task
 {
 	private static int maxId = 0;
-	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 
 	private int id;
 	private LocalDateTime deadline;
@@ -109,11 +108,20 @@ public class Task
 		this.done = done;
 	}
 
+	protected int getNumericDate()
+	{
+		int year = deadline.getYear();
+		int month = deadline.getMonthValue();
+		int day = deadline.getDayOfMonth();
+
+		return year * 10000 + month * 100 + day;
+	}
+
 	public String toString()
 	{
-		String done = this.done ? "\u2713" : "\u2717";
+		String done = this.done ? "x" : " ";
 		String deadline = this.deadline.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-		return String.format("%-2d %s %s %s", id, deadline, done, name);
+		return String.format("%-2d %s [%s] %s", id, deadline, done, name);
 	}
 }

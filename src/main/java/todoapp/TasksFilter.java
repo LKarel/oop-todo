@@ -1,40 +1,34 @@
 package todoapp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Date;
 
 public class TasksFilter
 {
 	private TaskList source = new TaskList();
 
 	private BitSet byDone = new BitSet();
-	private ArrayList<Date> byDates = new ArrayList<Date>();
-	private ArrayList<String> byKeywords = new ArrayList<String>();
+	private ArrayList<Integer> byDates = new ArrayList<Integer>();
 
 	/**
 	 * Create a new TasksFilter for a set of tasks.
 	 */
 	public TasksFilter(TaskList tasks)
 	{
-		source = tasks.clone();
+		source = tasks;
 	}
 
 	/**
 	 * Select all tasks that are due on the specified date
 	 */
-	public void byDate(Date date)
+	public void byDate(LocalDateTime date)
 	{
-		// @todo make the date more generic, store as int
-		byDates.add(date);
-	}
+		int year = date.getYear();
+		int month = date.getMonthValue();
+		int day = date.getDayOfMonth();
 
-	/**
-	 * Select tasks that match this keyword
-	 */
-	public void byKeyword(String keyword)
-	{
-		byKeywords.add(keyword.toLowerCase());
+		byDates.add(year * 10000 + month * 100 + day);
 	}
 
 	/**
@@ -54,7 +48,10 @@ public class TasksFilter
 
 		for (Task task : source)
 		{
-			// @todo compare dates here
+			if (!byDates.isEmpty() && !byDates.contains(task.getNumericDate()))
+			{
+				continue;
+			}
 
 			// The `done` restriction has been set
 			if (!byDone.isEmpty())
@@ -64,22 +61,6 @@ public class TasksFilter
 					// The task's `done` value does not match what was required
 					continue;
 				}
-			}
-
-			boolean valid = true;
-
-			for (String keyword : byKeywords)
-			{
-				if (!task.getName().toLowerCase().contains(keyword))
-				{
-					valid = false;
-					break;
-				}
-			}
-
-			if (!valid)
-			{
-				continue;
 			}
 
 			out.add(task);
