@@ -38,8 +38,9 @@ public class Main
 		"undo ID",
 		"  Mark task with the specified ID as not done",
 		"",
-		"add 'dd-MM-yyyy hh:mm' 'name'",
-		"  Add task with the specified deadline and name to the list"
+		"add DATE NAME",
+		"  Add task with the specified deadline and name to the list",
+		"  Allowed DATE values are 'today', 'tomorrow' and any ISO8601 date"
 	};
 
 	private static TaskList tasks;
