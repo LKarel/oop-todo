@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Main
 {
@@ -108,7 +109,32 @@ public class Main
 	 */
 	private static void list(String[] args)
 	{
-		for (Task task : tasks)
+		List<String> argsList = Arrays.asList(args);
+		TasksFilter filter = new TasksFilter(tasks);
+
+		if (argsList.contains("done"))
+		{
+			filter.byDone(true);
+		}
+
+		if (argsList.contains("undone"))
+		{
+			filter.byDone(false);
+		}
+
+		LocalDateTime now = LocalDateTime.now();
+
+		if (argsList.contains("today"))
+		{
+			filter.byDate(now);
+		}
+
+		if (argsList.contains("tomorrow"))
+		{
+			filter.byDate(now.plusDays(1));
+		}
+
+		for (Task task : filter.getTasks())
 		{
 			System.out.println(task);
 		}
