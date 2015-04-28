@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import todoapp.gui.GUI;
+
 public class Main
 {
 	private static class IllegalUsageException extends Exception
@@ -31,6 +33,9 @@ public class Main
 		"  list all tasks (default)",
 		"  Optional keywords can be specified for filtering the tasks. The default is to list all tasks not marked as done",
 		"  Special keywords include: done, todo, today, tomorrow, yesterday. You can also filter by dates",
+		"",
+		"gui",
+		"  Start the GUI",
 		"",
 		"done ID",
 		"  Mark task with the specified ID as done",
@@ -73,6 +78,10 @@ public class Main
 			else if (verb.equals("add"))
 			{
 				add(argsLeft);
+			}
+			else if (verb.equals("gui"))
+			{
+				javafx.application.Application.launch(GUI.class);
 			}
 			else
 			{
