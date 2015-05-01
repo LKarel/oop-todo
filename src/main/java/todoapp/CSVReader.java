@@ -108,4 +108,9 @@ public class CSVReader
 
 		return new Line(line.split(","));
 	}
+
+	public void close()
+	{
+		scanner.close();
+	}
 }

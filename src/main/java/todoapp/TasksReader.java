@@ -23,10 +23,11 @@ public class TasksReader
 	public TaskList getTasks()
 	{
 		TaskList tasks = new TaskList();
+		CSVReader reader = null;
 
 		try
 		{
-			CSVReader reader = new CSVReader(file);
+			reader = new CSVReader(file);
 
 			while (reader.canRead())
 			{
@@ -42,6 +43,13 @@ public class TasksReader
 		}
 		catch (FileNotFoundException e)
 		{
+		}
+		finally
+		{
+			if (reader != null)
+			{
+				reader.close();
+			}
 		}
 
 		return tasks;
