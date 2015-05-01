@@ -22,6 +22,7 @@ public class TasksWriter
 	 */
 	public void write(TaskList tasks)
 	{
+
 		String filePath = file.getAbsolutePath();
 
 		file.delete();
@@ -31,11 +32,17 @@ public class TasksWriter
 		{
 			PrintWriter printWriter = new PrintWriter(file);
 
+			for (Task task : tasks)
+			{
+				printWriter.println(taskToCSV(task));
+			}
+
 			printWriter.close();
 		}
 		catch (FileNotFoundException e)
 		{
 			System.out.println("Invalid file");
+			return;
 		}
 	}
 
