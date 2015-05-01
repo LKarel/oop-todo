@@ -58,12 +58,18 @@ public class Main
 			return;
 		}
 
+		String verb = args[0];
+		String[] argsLeft = Arrays.copyOfRange(args, 1, args.length);
+
+		if (verb.equals("gui"))
+		{
+			javafx.application.Application.launch(GUI.class);
+			return;
+		}
+
 		File tasksFile = TasksReader.getDataFile();
 		TasksReader tasksReader = new TasksReader(tasksFile);
 		tasks = tasksReader.getTasks();
-
-		String verb = args[0];
-		String[] argsLeft = Arrays.copyOfRange(args, 1, args.length);
 
 		try
 		{
@@ -78,10 +84,6 @@ public class Main
 			else if (verb.equals("add"))
 			{
 				add(argsLeft);
-			}
-			else if (verb.equals("gui"))
-			{
-				javafx.application.Application.launch(GUI.class);
 			}
 			else
 			{

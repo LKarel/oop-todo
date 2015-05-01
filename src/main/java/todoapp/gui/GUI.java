@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import todoapp.TaskList;
 import todoapp.TasksReader;
+import todoapp.TasksWriter;
 
 public class GUI extends Application
 {
@@ -36,5 +37,13 @@ public class GUI extends Application
 
 		primaryStage.setScene(new Scene(root, 300, 250));
 		primaryStage.show();
+	}
+
+	@Override
+	public void stop()
+	{
+		File tasksFile = TasksReader.getDataFile();
+		TasksWriter tasksWriter = new TasksWriter(tasksFile);
+		tasksWriter.write(tasks);
 	}
 }
