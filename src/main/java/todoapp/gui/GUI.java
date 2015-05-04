@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -33,7 +34,13 @@ public class GUI extends Application
 		primaryStage.setTitle("Todo app");
 
 		StackPane root = new StackPane();
-		root.getChildren().add(new TasksPane(tasks));
+
+		ScrollPane scroll = new ScrollPane();
+		scroll.setContent(new TasksPane(tasks));
+		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+		root.getChildren().add(scroll);
 
 		primaryStage.setScene(new Scene(root, 300, 250));
 		primaryStage.show();
