@@ -3,6 +3,7 @@ package todoapp.gui;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -19,6 +20,7 @@ public class TasksPane extends VBox
 		super(10);
 		this.tasks = tasks;
 
+		setPadding(new Insets(5, 10, 5, 10));
 		insertItems();
 	}
 

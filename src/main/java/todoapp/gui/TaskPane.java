@@ -5,19 +5,22 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import todoapp.Task;
 
 public class TaskPane extends HBox
 {
 	private static final DateTimeFormatter DATE_FORMAT =
-		DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm");
+		DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	private Task task;
 
@@ -25,6 +28,9 @@ public class TaskPane extends HBox
 	{
 		super(5);
 		this.task = task;
+
+		setAlignment(Pos.CENTER_LEFT);
+		setPadding(new Insets(4, 0, 4, 0));
 
 		CheckBox mark = new CheckBox();
 		mark.setSelected(task.getDone());
@@ -39,10 +45,12 @@ public class TaskPane extends HBox
 		});
 
 		Label deadline = new Label(task.getDeadline().format(DATE_FORMAT));
-		deadline.setPrefWidth(120);
-		deadline.setMinWidth(120);
+		deadline.setMinWidth(Label.USE_PREF_SIZE);
+		deadline.setFont(new Font("Verdana", 13));
+		deadline.setTextFill(Color.web("#666"));
 
 		Label text = new Label(task.getName());
+		text.setFont(new Font("Verdana", 14));
 
 		getChildren().add(mark);
 		getChildren().add(deadline);
