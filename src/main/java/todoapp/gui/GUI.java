@@ -47,6 +47,7 @@ public class GUI extends Application
 		primaryStage.setMinWidth(300);
 
 		VBox root = new VBox();
+		TasksPane tasksPane = new TasksPane(tasks);
 
 		HBox inputBar = new HBox(5);
 		inputBar.setPadding(new Insets(10));
@@ -103,6 +104,8 @@ public class GUI extends Application
 						dateField.getStyleClass().removeAll("textField-error");
 						dateField.setText("");
 						nameField.setText("");
+
+						tasksPane.notifyDataChanged();
 					}
 				}
 			}
@@ -112,7 +115,7 @@ public class GUI extends Application
 		inputBar.getChildren().add(nameField);
 
 		ScrollPane scroll = new ScrollPane();
-		scroll.setContent(new TasksPane(tasks));
+		scroll.setContent(tasksPane);
 		scroll.setStyle("-fx-background-color:transparent;");
 		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
