@@ -38,6 +38,7 @@ public class GUI extends Application
 
 		ScrollPane scroll = new ScrollPane();
 		scroll.setContent(new TasksPane(tasks));
+		scroll.setStyle("-fx-background-color:transparent;");
 		scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
