@@ -23,6 +23,7 @@ public class TaskPane extends HBox
 		DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	private Task task;
+	private Callback callback;
 
 	public TaskPane(Task task)
 	{
@@ -41,6 +42,11 @@ public class TaskPane extends HBox
 				Boolean oldValue, Boolean newValue)
 			{
 				task.setDone(newValue);
+
+				if (callback != null)
+				{
+					callback.onTaskChanged();
+				}
 			}
 		});
 
@@ -55,5 +61,15 @@ public class TaskPane extends HBox
 		getChildren().add(mark);
 		getChildren().add(deadline);
 		getChildren().add(text);
+	}
+
+	public void setCallback(Callback cb)
+	{
+		callback = cb;
+	}
+
+	public interface Callback
+	{
+		void onTaskChanged();
 	}
 }

@@ -5,9 +5,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import todoapp.Task;
 import todoapp.TaskList;
@@ -37,7 +41,36 @@ public class TasksPane extends VBox
 				throw new IllegalArgumentException("Invalid task ID passed");
 			}
 
-			taskPanes.put(taskId, new TaskPane(task));
+			TaskPane pane = new TaskPane(task);
+			pane.setCallback(new TaskPane.Callback()
+			{
+				@Override
+				public void onTaskChanged()
+				{
+					if (task.getDone())
+					{
+						FadeTransition ft = new FadeTransition(Duration.millis(400), pane);
+						ft.setFromValue(1);
+						ft.setToValue(0);
+						ft.setOnFinished(new EventHandler<ActionEvent>()
+						{
+							@Override
+							public void handle(ActionEvent event)
+							{
+								notifyDataChanged();
+							}
+						});
+
+						ft.play();
+					}
+					else
+					{
+						notifyDataChanged();
+					}
+				}
+			});
+
+			taskPanes.put(taskId, pane);
 		}
 
 		return taskPanes.get(taskId);
