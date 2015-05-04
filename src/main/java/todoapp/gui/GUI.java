@@ -32,6 +32,7 @@ public class GUI extends Application
 		readTasks();
 
 		primaryStage.setTitle("Todo app");
+		primaryStage.setMinWidth(300);
 
 		StackPane root = new StackPane();
 
