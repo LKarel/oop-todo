@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -54,15 +53,15 @@ public class GUI extends Application
 
 		boolean dateOk = false;
 
-		TextField dateField = new TextField();
+		LabeledTextField dateField = new LabeledTextField("Deadline");
 		dateField.setPrefWidth(110);
-		dateField.setMinWidth(TextField.USE_PREF_SIZE);
+		dateField.setMinWidth(LabeledTextField.USE_PREF_SIZE);
 
-		TextField nameField = new TextField();
+		LabeledTextField nameField = new LabeledTextField("What to do?");
 		nameField.setMaxWidth(Double.MAX_VALUE);
 		HBox.setHgrow(nameField, Priority.ALWAYS);
 
-		dateField.textProperty().addListener(new ChangeListener<String>()
+		dateField.valueProperty().addListener(new ChangeListener<String>()
 		{
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)

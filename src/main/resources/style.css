@@ -3,3 +3,8 @@
 	-fx-text-box-border: red;
 	-fx-focus-color: red;
 }
+
+.textField-empty
+{
+	-fx-text-fill: #aaa;
+}
