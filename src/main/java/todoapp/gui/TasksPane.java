@@ -63,7 +63,10 @@ public class TasksPane extends VBox
 
 		for (Task task : tasks)
 		{
-			getChildren().add(getTaskPane(task.getId()));
+			if (!task.getDone())
+			{
+				getChildren().add(getTaskPane(task.getId()));
+			}
 		}
 	}
 }
