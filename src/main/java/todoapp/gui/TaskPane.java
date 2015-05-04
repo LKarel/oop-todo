@@ -1,5 +1,8 @@
 package todoapp.gui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -13,6 +16,9 @@ import todoapp.Task;
 
 public class TaskPane extends HBox
 {
+	private static final DateTimeFormatter DATE_FORMAT =
+		DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm");
+
 	private Task task;
 
 	public TaskPane(Task task)
@@ -32,7 +38,7 @@ public class TaskPane extends HBox
 			}
 		});
 
-		Label deadline = new Label(task.getDeadline().toString());
+		Label deadline = new Label(task.getDeadline().format(DATE_FORMAT));
 		deadline.setPrefWidth(120);
 		deadline.setMinWidth(120);
 
