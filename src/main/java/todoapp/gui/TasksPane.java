@@ -1,5 +1,7 @@
 package todoapp.gui;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +51,15 @@ public class TasksPane extends VBox
 	private void insertItems()
 	{
 		getChildren().clear();
+
+		Collections.sort(tasks, new Comparator<Task>()
+		{
+			@Override
+			public int compare(Task a, Task b)
+			{
+				return a.getDeadline().compareTo(b.getDeadline());
+			}
+		});
 
 		for (Task task : tasks)
 		{
