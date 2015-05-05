@@ -58,8 +58,10 @@ public class DateParser
 
 		switch (split[0])
 		{
+			case "yesterday": datetime = datetime.plusDays(-1); break;
 			case "today": datetime = datetime.plusDays(0); break;
 			case "tomorrow": datetime = datetime.plusDays(1); break;
+			case "overmorrow": datetime = datetime.plusDays(2); break;
 			default: throw new IllegalArgumentException();
 		}
 
