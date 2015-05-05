@@ -1,6 +1,7 @@
 package todoapp;
 
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,32 +21,26 @@ public class DateParser
 
 	public static LocalDateTime parse(String str)
 	{
-		LocalDateTime datetime = null;
-
 		try
 		{
-			datetime = parseRelative(str);
+			return parseRelative(str);
 		}
 		catch (IllegalArgumentException e)
 		{
 		}
 
-		if (datetime == null)
+		for (DateTimeFormatter format : formats)
 		{
-			for (DateTimeFormatter format : formats)
+			try
 			{
-				try
-				{
-					datetime = LocalDateTime.parse(str, format);
-					break;
-				}
-				catch (DateTimeParseException e)
-				{
-				}
+				return LocalDate.parse(str, format).atTime(0, 0);
+			}
+			catch (DateTimeParseException e)
+			{
 			}
 		}
 
-		return datetime;
+		return null;
 	}
 
 	/**
