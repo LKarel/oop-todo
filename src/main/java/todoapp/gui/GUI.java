@@ -51,8 +51,6 @@ public class GUI extends Application
 		HBox inputBar = new HBox(5);
 		inputBar.setPadding(new Insets(10));
 
-		boolean dateOk = false;
-
 		LabeledTextField dateField = new LabeledTextField("Deadline");
 		dateField.setPrefWidth(110);
 		dateField.setMinWidth(LabeledTextField.USE_PREF_SIZE);
